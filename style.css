@@ -80,6 +80,18 @@ button {
   50% { transform: scale(1.15); opacity: 0.22; }
 }
 
+/* Allow clicks to pass through heart overlays */
+.faint-heart::before,
+.heart-bg::before {
+  pointer-events: none;
+}
+
+/* Ensure card content stays on top */
+.card {
+  position: relative;
+  z-index: 2;
+}
+
 /* HEART BUILD */
 #heart {
   display: grid;

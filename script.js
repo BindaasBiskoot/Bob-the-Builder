@@ -94,3 +94,24 @@ function showEasterEgg() {
   document.body.appendChild(egg);
   setTimeout(() => egg.remove(), 3000);
 }
+
+function replayBuild() {
+  playClick();
+
+  // Reset steps
+  stepIndex = 0;
+  document.querySelectorAll(".step").forEach(step =>
+    step.classList.add("hidden")
+  );
+  document.getElementById("nextStepBtn").classList.remove("hidden");
+  document.getElementById("toProposalBtn").classList.add("hidden");
+
+  // Reset heart
+  heartIndex = 0;
+  document.querySelectorAll(".brick").forEach(brick =>
+    brick.classList.remove("filled")
+  );
+
+  // Go back to start
+  goToPage(1);
+}

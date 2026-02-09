@@ -139,9 +139,22 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* 2️⃣ Mobile Safari fix: force keyboard availability */
-document.body.addEventListener("click", () => {
-  const input = document.getElementById("secretInput");
-  if (input) input.focus();
+let secretInputArmed = false;
+
+// Arm the easter egg ONLY on a long press (mobile-friendly)
+document.addEventListener("touchstart", (e) => {
+  secretInputArmed = true;
+
+  setTimeout(() => {
+    if (secretInputArmed) {
+      const input = document.getElementById("secretInput");
+      if (input) input.focus();
+    }
+  }, 600); // long press = 0.6s
+});
+
+document.addEventListener("touchend", () => {
+  secretInputArmed = false;
 });
 
 /* 3️⃣ Easter egg popup */

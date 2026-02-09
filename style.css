@@ -140,3 +140,73 @@ button {
     opacity: 0;
   }
 }
+
+/* === LEGO SILHOUETTE FIGURES === */
+
+.silhouettes {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 18px; /* feels like hand-holding */
+  margin: 1.5rem 0;
+}
+
+.lego-fig {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* YOU */
+.you-fig .lego-hair {
+  width: 46px;
+  height: 28px;
+  background: #2b2b2b;
+  border-radius: 14px 14px 8px 8px;
+  margin-bottom: -6px;
+}
+
+.you-fig .lego-body {
+  width: 52px;
+  height: 80px;
+  background: #f6a5c0;
+  border-radius: 18px;
+  position: relative;
+}
+
+.you-fig .lego-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, #fff 3px, transparent 4px),
+    radial-gradient(circle at 60% 45%, #fff 3px, transparent 4px),
+    radial-gradient(circle at 45% 65%, #fff 3px, transparent 4px);
+  opacity: 0.8;
+}
+
+/* HIM */
+.him-fig .lego-head {
+  width: 40px;
+  height: 40px;
+  background: #eac3a0;
+  border-radius: 50%;
+  margin-bottom: -6px;
+}
+
+.him-fig .lego-body {
+  width: 52px;
+  height: 65px;
+  background: #111;
+  border-radius: 14px 14px 10px 10px;
+}
+
+.him-fig .lego-body::after {
+  content: "";
+  display: block;
+  width: 52px;
+  height: 30px;
+  background: #c3b091;
+  border-radius: 0 0 10px 10px;
+  margin-top: 65px;
+}

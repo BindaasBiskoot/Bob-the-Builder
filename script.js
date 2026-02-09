@@ -107,3 +107,7 @@ function showEasterEgg() {
 
   setTimeout(() => egg.remove(), 3000);
 }
+
+document.body.addEventListener("click", () => {
+  document.getElementById("secretInput").focus();
+});

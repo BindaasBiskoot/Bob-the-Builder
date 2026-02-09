@@ -3,6 +3,8 @@
 ================================ */
 let stepIndex = 0;
 let secret = "";
+let longPressTimer = null;
+let easterEggArmed = false;
 
 /* ================================
    LEGO CLICK SOUND
@@ -48,7 +50,6 @@ function revealStep() {
 ================================ */
 function buildHeart() {
   playClick();
-
   const heart = document.querySelector(".heart-fill");
   if (heart) heart.classList.add("filled");
 
@@ -57,7 +58,7 @@ function buildHeart() {
 }
 
 /* ================================
-   NO BUTTON ESCAPE
+   DRAMATIC NO BUTTON
 ================================ */
 function escapeNo() {
   const btn = document.getElementById("noBtn");
@@ -74,8 +75,10 @@ function escapeNo() {
   const x = (Math.random() * 200) - 100;
   const y = (Math.random() * 200) - 100;
 
-  btn.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random()*20-10}deg)`;
-  btn.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+  btn.style.transform =
+    `translate(${x}px, ${y}px) rotate(${Math.random()*20-10}deg)`;
+  btn.textContent =
+    phrases[Math.floor(Math.random() * phrases.length)];
 }
 
 /* ================================
@@ -104,7 +107,6 @@ function legoConfetti() {
 function replayBuild() {
   playClick();
 
-  // Reset steps
   stepIndex = 0;
   document.querySelectorAll(".memory-card")
     .forEach(card => card.classList.add("hidden"));
@@ -112,7 +114,6 @@ function replayBuild() {
   document.getElementById("nextStepBtn").classList.remove("hidden");
   document.getElementById("toProposalBtn").classList.add("hidden");
 
-  // Reset heart
   const heart = document.querySelector(".heart-fill");
   if (heart) heart.classList.remove("filled");
 
@@ -120,10 +121,38 @@ function replayBuild() {
 }
 
 /* ================================
-   SECRET EASTER EGG (OYE)
+   SECRET EASTER EGG (LONG PRESS)
 ================================ */
 
-/* 1️⃣ Capture typed keys */
+/*
+  RULES:
+  - Long press (>600ms) anywhere
+  - EXCEPT buttons (especially Add Next Brick)
+  - Opens keyboard intentionally
+  - Then typing "oye" triggers easter egg
+*/
+
+// Detect long press
+document.addEventListener("touchstart", (e) => {
+  // ❌ Ignore buttons completely
+  if (e.target.closest("button")) return;
+
+  easterEggArmed = true;
+
+  longPressTimer = setTimeout(() => {
+    if (!easterEggArmed) return;
+
+    const input = document.getElementById("secretInput");
+    if (input) input.focus();
+  }, 600); // 0.6s long press
+});
+
+document.addEventListener("touchend", () => {
+  easterEggArmed = false;
+  clearTimeout(longPressTimer);
+});
+
+// Capture typed keys
 document.addEventListener("keydown", (e) => {
   secret += e.key.toLowerCase();
 
@@ -132,32 +161,12 @@ document.addEventListener("keydown", (e) => {
     secret = "";
   }
 
-  // Keep buffer short
   if (secret.length > 10) {
     secret = secret.slice(-10);
   }
 });
 
-/* 2️⃣ Mobile Safari fix: force keyboard availability */
-let secretInputArmed = false;
-
-// Arm the easter egg ONLY on a long press (mobile-friendly)
-document.addEventListener("touchstart", (e) => {
-  secretInputArmed = true;
-
-  setTimeout(() => {
-    if (secretInputArmed) {
-      const input = document.getElementById("secretInput");
-      if (input) input.focus();
-    }
-  }, 600); // long press = 0.6s
-});
-
-document.addEventListener("touchend", () => {
-  secretInputArmed = false;
-});
-
-/* 3️⃣ Easter egg popup */
+// Easter egg popup
 function showEasterEgg() {
   const egg = document.createElement("div");
   egg.innerHTML = "🧱 Oye detected.<br>Babyji found 💛";

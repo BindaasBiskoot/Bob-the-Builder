@@ -19,14 +19,15 @@ body {
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  max-width: 500px;
+  max-width: 520px;
   position: relative;
+  z-index: 2;
 }
 
-.card.wide { max-width: 750px; }
+.card.wide { max-width: 760px; }
 
 button {
-  margin-top: 1rem;
+  margin-top: 1.2rem;
   padding: 12px 22px;
   border-radius: 12px;
   border: none;
@@ -38,26 +39,38 @@ button {
 
 .hidden { display: none; }
 
-.step {
-  margin: 1.2rem 0;
-  animation: pop 0.4s ease;
-}
-
-@keyframes pop {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-/* MINIFIGS */
-.minifigs {
+/* FLOATING MEMORY CARDS */
+.memory-stack {
   display: flex;
-  justify-content: center;
-  gap: 8px; /* critical for hand-holding illusion */
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
 }
 
-.fig { width: 90px; }
+.memory-card {
+  background: #fffdf7;
+  border-radius: 16px;
+  padding: 1.2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  animation: floatIn 0.5s ease;
+}
 
-/* HEART ANIMATION */
+.memory-icon {
+  font-size: 1.5rem;
+}
+
+@keyframes floatIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* HEART BACKGROUND */
 .faint-heart::before,
 .heart-bg::before {
   content: "💗";
@@ -67,11 +80,7 @@ button {
   font-size: 220px;
   opacity: 0.12;
   animation: pulseHeart 3s ease-in-out infinite;
-}
-
-.faint-heart::before {
-  font-size: 140px;
-  opacity: 0.08;
+  pointer-events: none;
 }
 
 @keyframes pulseHeart {
@@ -79,41 +88,33 @@ button {
   50% { transform: scale(1.15); opacity: 0.22; }
 }
 
-/* Allow clicks to pass through heart overlays */
-.faint-heart::before,
-.heart-bg::before {
-  pointer-events: none;
-}
-
-/* Ensure card content stays on top */
-.card {
-  position: relative;
-  z-index: 2;
-}
-
-/* HEART BUILD */
-#heart {
-  display: grid;
-  grid-template-columns: repeat(2, 40px);
-  gap: 10px;
-  justify-content: center;
+/* HEART FILL */
+.heart-container {
+  width: 140px;
   margin: 1.5rem auto;
 }
 
-.brick {
-  width: 40px;
-  height: 40px;
-  background: #ffcdd2;
-  opacity: 0.2;
-  border-radius: 6px;
+.heart-svg {
+  width: 100%;
 }
 
-.brick.filled {
-  background: #e53935;
-  opacity: 1;
+.heart-outline {
+  fill: none;
+  stroke: #e57373;
+  stroke-width: 4;
 }
 
-/* CONFETTI */
+.heart-fill {
+  fill: #e53935;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.8s ease;
+}
+
+.heart-fill.filled {
+  clip-path: inset(0 0 0 0);
+}
+
+/* LEGO CONFETTI */
 .confetti {
   position: fixed;
   width: 12px;
@@ -139,58 +140,4 @@ button {
     transform: translateY(100vh) rotate(360deg);
     opacity: 0;
   }
-}
-
-/* YOU */
-.you-fig .lego-hair {
-  width: 46px;
-  height: 28px;
-  background: #2b2b2b;
-  border-radius: 14px 14px 8px 8px;
-  margin-bottom: -6px;
-}
-
-.you-fig .lego-body {
-  width: 52px;
-  height: 80px;
-  background: #f6a5c0;
-  border-radius: 18px;
-  position: relative;
-}
-
-.you-fig .lego-body::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 30% 30%, #fff 3px, transparent 4px),
-    radial-gradient(circle at 60% 45%, #fff 3px, transparent 4px),
-    radial-gradient(circle at 45% 65%, #fff 3px, transparent 4px);
-  opacity: 0.8;
-}
-
-/* HIM */
-.him-fig .lego-head {
-  width: 40px;
-  height: 40px;
-  background: #eac3a0;
-  border-radius: 50%;
-  margin-bottom: -6px;
-}
-
-.him-fig .lego-body {
-  width: 52px;
-  height: 65px;
-  background: #111;
-  border-radius: 14px 14px 10px 10px;
-}
-
-.him-fig .lego-body::after {
-  content: "";
-  display: block;
-  width: 52px;
-  height: 30px;
-  background: #c3b091;
-  border-radius: 0 0 10px 10px;
-  margin-top: 65px;
 }

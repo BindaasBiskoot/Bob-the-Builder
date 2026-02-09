@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Built Brick by Brick 💛</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LEGO CLICK SOUND -->
+<audio id="clickSound" src="click.mp3" preload="auto"></audio>
+
+<!-- PAGE 1 -->
+<section class="page active" id="page1">
+  <div class="card">
+    <h1>🧱 Every great build starts with one brick…</h1>
+    <p>And one very special Babyji 💛</p>
+    <button onclick="goToPage(2)">Start Building</button>
+  </div>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page" id="page2">
+  <div class="card wide">
+
+    <h2>📘 Instruction Manual</h2>
+    <h3>Set Name: Us</h3>
+
+    <!-- MINIFIGS + FAINT HEART -->
+    <div class="minifig-area faint-heart">
+      <div class="minifigs">
+
+        <!-- YOU -->
+        <svg class="fig" viewBox="0 0 100 180">
+          <circle cx="50" cy="35" r="22" fill="#f2c9ac"/>
+          <path d="M25 30 Q50 5 75 30" fill="#2b2b2b"/>
+          <circle cx="43" cy="32" r="2"/>
+          <circle cx="57" cy="32" r="2"/>
+          <path d="M42 42 Q50 50 58 42" stroke="#000" fill="none"/>
+          <rect x="18" y="60" width="64" height="80" rx="12" fill="#f6a5c0"/>
+        </svg>
+
+        <!-- HIM -->
+        <svg class="fig" viewBox="0 0 100 180">
+          <circle cx="50" cy="35" r="22" fill="#eac3a0"/>
+          <rect x="34" y="27" width="32" height="14" rx="4" fill="none" stroke="#555"/>
+          <path d="M35 44 Q50 47 65 44" stroke="#666"/>
+          <circle cx="43" cy="32" r="2"/>
+          <circle cx="57" cy="32" r="2"/>
+          <path d="M42 42 Q50 46 58 42" stroke="#000" fill="none"/>
+          <rect x="18" y="60" width="64" height="70" rx="10" fill="#111"/>
+          <rect x="18" y="130" width="64" height="35" fill="#c3b091"/>
+        </svg>
+
+      </div>
+    </div>
+
+    <!-- STEPS -->
+    <div id="steps">
+
+      <div class="step hidden">
+        <h4>🧱 Step 1: Unexpected Assembly</h4>
+        <p>Initiate conversation under the pretext of “clarifying something.”</p>
+        <small>Payment demanded: One chocolate 🍫 (still under dispute)</small>
+      </div>
+
+      <div class="step hidden">
+        <h4>🧱 Step 2: Naming the Build</h4>
+        <p>“Babyji” detected. Permanently saved. No rename option available.</p>
+        <small>Side effects: Trusting heart, boyish charm, Nonsense fellow energy.</small>
+      </div>
+
+      <div class="step hidden">
+        <h4>🧱 Step 3: Flirty Override Protocol</h4>
+        <p><em>“I can’t be everything everywhere all at once.”</em></p>
+        <p><strong>“Then why not simplify it and be mine? ❤️😌”</strong></p>
+        <small>Proper asking-out protocol initiated by Babyji.</small>
+      </div>
+
+      <div class="step hidden">
+        <h4>🧱 Step 4: Core Memory Brick</h4>
+        <p>Pinky linked. Attempted release detected. Pinky re-linked without discussion.</p>
+        <small>This brick stays.</small>
+      </div>
+
+      <div class="step hidden">
+        <h4>🧱 Step 5: Shared Build Activity</h4>
+        <p>🌼 Wildflower Bouquet LEGO set — built together on his birthday.</p>
+        <blockquote>
+          “So that they never wilt away, just like my love for you.”
+        </blockquote>
+      </div>
+
+      <div class="step hidden">
+        <h4>🧱 Step 6: Communication Protocol</h4>
+        <p>
+          👻 = I love you<br>
+          🐣 = I miss you<br>
+          “Aithu Babyji”, “Dumbo”, “Nonsense fellow”
+        </p>
+      </div>
+
+    </div>
+
+    <button id="nextStepBtn" onclick="revealStep()">Add Next Brick</button>
+    <button id="toProposalBtn" class="hidden" onclick="goToPage(3)">
+      Proceed to Final Build
+    </button>
+
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section class="page" id="page3">
+  <div class="card">
+    <div class="heart-bg"></div>
+
+    <h2>The Big Build 💛</h2>
+
+    <div id="heart">
+      <div class="brick"></div>
+      <div class="brick"></div>
+      <div class="brick"></div>
+      <div class="brick"></div>
+    </div>
+
+    <p>Will you keep building life with me, Babyji?</p>
+
+    <button onclick="buildHeart()">YES 💛</button>
+    <button id="noBtn" onmouseover="escapeNo()">NO 🙄</button>
+  </div>
+</section>
+
+<!-- PAGE 4 -->
+<section class="page" id="page4">
+  <div class="card">
+    <h1>BUILD COMPLETE ✅</h1>
+    <h2>Set Name: Us</h2>
+    <p>Status: Forever 💛</p>
+    <p>Happy Valentine’s Day, Nirmal Nithin.</p>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

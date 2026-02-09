@@ -1,59 +1,54 @@
 let stepIndex = 0;
-let heartIndex = 0;
 let secret = "";
 
-// CLICK SOUND
+/* CLICK SOUND */
 function playClick() {
   const sound = document.getElementById("clickSound");
   sound.currentTime = 0;
   sound.play();
 }
 
-// PAGE NAV
+/* PAGE NAV */
 function goToPage(n) {
   playClick();
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById("page" + n).classList.add("active");
+  document.querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
+  document.getElementById("page" + n)
+    .classList.add("active");
 }
 
-// STEP REVEAL
+/* STEP REVEAL */
 function revealStep() {
   playClick();
-  const steps = document.querySelectorAll(".step");
-  if (stepIndex < steps.length) {
-    steps[stepIndex].classList.remove("hidden");
+  const cards = document.querySelectorAll(".memory-card");
+
+  if (stepIndex < cards.length) {
+    cards[stepIndex].classList.remove("hidden");
     stepIndex++;
   }
-  if (stepIndex === steps.length) {
+
+  if (stepIndex === cards.length) {
     document.getElementById("nextStepBtn").classList.add("hidden");
     document.getElementById("toProposalBtn").classList.remove("hidden");
   }
 }
 
-// HEART BUILD
+/* HEART BUILD */
 function buildHeart() {
   playClick();
-  const bricks = document.querySelectorAll(".brick");
-
-  if (heartIndex < bricks.length) {
-    bricks[heartIndex].classList.add("filled");
-    heartIndex++;
-  }
-
-  if (heartIndex === bricks.length) {
-    legoConfetti();
-    setTimeout(() => goToPage(4), 1200);
-  }
+  document.querySelector(".heart-fill").classList.add("filled");
+  legoConfetti();
+  setTimeout(() => goToPage(4), 1200);
 }
 
-// NO BUTTON ESCAPE
+/* NO BUTTON */
 function escapeNo() {
   const btn = document.getElementById("noBtn");
   btn.style.transform =
     `translate(${Math.random()*150}px, ${Math.random()*150}px)`;
 }
 
-// LEGO CONFETTI
+/* CONFETTI */
 function legoConfetti() {
   const colors = ["#e53935", "#1e88e5", "#fdd835", "#f48fb1"];
 
@@ -66,11 +61,28 @@ function legoConfetti() {
     conf.style.animationDuration =
       2 + Math.random() * 2 + "s";
     document.body.appendChild(conf);
+
     setTimeout(() => conf.remove(), 4000);
   }
 }
 
-// SECRET EASTER EGG: OYE
+/* REPLAY BUILD */
+function replayBuild() {
+  playClick();
+
+  stepIndex = 0;
+  document.querySelectorAll(".memory-card")
+    .forEach(card => card.classList.add("hidden"));
+
+  document.getElementById("nextStepBtn").classList.remove("hidden");
+  document.getElementById("toProposalBtn").classList.add("hidden");
+
+  document.querySelector(".heart-fill").classList.remove("filled");
+
+  goToPage(1);
+}
+
+/* SECRET EASTER EGG */
 document.addEventListener("keydown", e => {
   secret += e.key.toLowerCase();
   if (secret.includes("oye")) {
@@ -92,26 +104,6 @@ function showEasterEgg() {
   egg.style.zIndex = "9999";
   egg.style.fontSize = "0.9rem";
   document.body.appendChild(egg);
+
   setTimeout(() => egg.remove(), 3000);
-}
-
-function replayBuild() {
-  playClick();
-
-  // Reset steps
-  stepIndex = 0;
-  document.querySelectorAll(".step").forEach(step =>
-    step.classList.add("hidden")
-  );
-  document.getElementById("nextStepBtn").classList.remove("hidden");
-  document.getElementById("toProposalBtn").classList.add("hidden");
-
-  // Reset heart
-  heartIndex = 0;
-  document.querySelectorAll(".brick").forEach(brick =>
-    brick.classList.remove("filled")
-  );
-
-  // Go back to start
-  goToPage(1);
 }

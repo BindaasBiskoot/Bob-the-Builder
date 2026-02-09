@@ -2,9 +2,8 @@
    GLOBAL STATE
 ================================ */
 let stepIndex = 0;
-let secret = "";
-let longPressTimer = null;
-let easterEggArmed = false;
+let tapCount = 0;
+let tapTimer = null;
 
 /* ================================
    LEGO CLICK SOUND
@@ -121,52 +120,33 @@ function replayBuild() {
 }
 
 /* ================================
-   SECRET EASTER EGG (LONG PRESS)
+   SECRET EASTER EGG (TRIPLE TAP)
 ================================ */
 
 /*
   RULES:
-  - Long press (>600ms) anywhere
-  - EXCEPT buttons (especially Add Next Brick)
-  - Opens keyboard intentionally
-  - Then typing "oye" triggers easter egg
+  - Triple tap anywhere
+  - EXCEPT buttons
+  - Mobile & desktop safe
 */
 
-// Detect long press
-document.addEventListener("touchstart", (e) => {
-  // ❌ Ignore buttons completely
+document.addEventListener("click", (e) => {
+  // Ignore buttons
   if (e.target.closest("button")) return;
 
-  easterEggArmed = true;
+  tapCount++;
 
-  longPressTimer = setTimeout(() => {
-    if (!easterEggArmed) return;
+  clearTimeout(tapTimer);
+  tapTimer = setTimeout(() => {
+    tapCount = 0;
+  }, 600);
 
-    const input = document.getElementById("secretInput");
-    if (input) input.focus();
-  }, 600); // 0.6s long press
-});
-
-document.addEventListener("touchend", () => {
-  easterEggArmed = false;
-  clearTimeout(longPressTimer);
-});
-
-// Capture typed keys
-document.addEventListener("keydown", (e) => {
-  secret += e.key.toLowerCase();
-
-  if (secret.includes("oye")) {
+  if (tapCount === 3) {
     showEasterEgg();
-    secret = "";
-  }
-
-  if (secret.length > 10) {
-    secret = secret.slice(-10);
+    tapCount = 0;
   }
 });
 
-// Easter egg popup
 function showEasterEgg() {
   const egg = document.createElement("div");
   egg.innerHTML = "🧱 Oye detected.<br>Babyji found 💛";

@@ -63,9 +63,19 @@ function escapeNo() {
   const btn = document.getElementById("noBtn");
   if (!btn) return;
 
-  const x = Math.random() * 150;
-  const y = Math.random() * 150;
-  btn.style.transform = `translate(${x}px, ${y}px)`;
+  const phrases = [
+    "Nice try 🙄",
+    "Absolutely not 😌",
+    "Wrong answer ❌",
+    "Think again 😏",
+    "That’s not happening 💛"
+  ];
+
+  const x = (Math.random() * 200) - 100;
+  const y = (Math.random() * 200) - 100;
+
+  btn.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random()*20-10}deg)`;
+  btn.textContent = phrases[Math.floor(Math.random() * phrases.length)];
 }
 
 /* ================================

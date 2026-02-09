@@ -141,22 +141,6 @@ button {
   }
 }
 
-/* === LEGO SILHOUETTE FIGURES === */
-
-.silhouettes {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 18px; /* feels like hand-holding */
-  margin: 1.5rem 0;
-}
-
-.lego-fig {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 /* YOU */
 .you-fig .lego-hair {
   width: 46px;
